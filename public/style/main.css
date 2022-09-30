@@ -1,0 +1,18 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.btn-submit {
+    background: linear-gradient(to right, rgb(127, 26, 215), rgb(199, 30, 182));
+    color: white;
+    border-radius: 20px;
+    width: 150px;
+}
+
+.btn-modify {
+    background: linear-gradient(to right, rgb(26, 171, 215), rgb(72, 199, 30));
+    color: white;
+    border-radius: 20px;
+    width: 150px;
+}

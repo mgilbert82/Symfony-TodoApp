@@ -24,13 +24,14 @@ class TodoListController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($todoList);
             $em->flush();
+            return $this->redirectToRoute("read_all");
         }
         return $this->render("todo_list/create.html.twig", [
-            "createForm" => $form->createView(),
+            "form" => $form->createView()
         ]);
     }
 
-    #[Route("/", name: "home")]
+    #[Route("/", name: "read_all")]
     public function readAll(Request $request, ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(TodoList::class);
@@ -50,10 +51,21 @@ class TodoListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
+            return $this->redirectToRoute("read_All");
         }
         return $this->render("todo_list/create.html.twig", [
-            "createForm" => $form->createView(),
+            "form" => $form->createView(),
             "list" => $list
         ]);
+    }
+
+    #[Route('/delete-list/{id}', name: 'delete-list')]
+    public function delete(TodoList $list, ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();;
+        $em->remove($list);
+        $em->flush();
+
+        return $this->redirectToRoute("read_all");
     }
 }
